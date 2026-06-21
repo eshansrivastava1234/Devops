@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eshan Srivastava — DevOps Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0d12;
+    --panel: #0f1420;
+    --panel-border: #1d2533;
+    --panel-border-hover: #2a3445;
+    --text: #e8eaed;
+    --text-dim: #8b94a3;
+    --text-faint: #5a6472;
+    --green: #7fe3a8;
+    --green-dim: #4a9c70;
+    --amber: #ff8a5b;
+    --blue: #6fb3ff;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(circle at 15% 0%, rgba(127, 227, 168, 0.05), transparent 40%),
+      radial-gradient(circle at 85% 20%, rgba(255, 138, 91, 0.04), transparent 35%);
+  }
+
+  a { color: inherit; }
+
+  ::selection { background: var(--green); color: #0a0d12; }
+
+  :focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .wrap {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(10, 13, 18, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--panel-border);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 28px;
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+  .logo {
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: -0.02em;
+  }
+  .logo .dot { color: var(--green); }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .nav-links a { text-decoration: none; transition: color 0.15s; }
+  .nav-links a:hover { color: var(--green); }
+  .nav-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--green);
+  }
+  .pulse {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 0 0 rgba(127,227,168,0.6);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(127,227,168,0.5); }
+    70% { box-shadow: 0 0 0 7px rgba(127,227,168,0); }
+    100% { box-shadow: 0 0 0 0 rgba(127,227,168,0); }
+  }
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+  }
+
+  /* ---------- HERO / TERMINAL ---------- */
+  .hero { padding: 64px 0 56px; }
+  .terminal {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -25px rgba(0,0,0,0.6);
+  }
+  .term-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--panel-border);
+    background: #0c1018;
+  }
+  .term-dot { width: 11px; height: 11px; border-radius: 50%; }
+  .term-bar .term-dot:nth-child(1) { background: #ff5f57; }
+  .term-bar .term-dot:nth-child(2) { background: #febc2e; }
+  .term-bar .term-dot:nth-child(3) { background: #28c840; }
+  .term-title {
+    margin-left: 10px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-faint);
+  }
+  .term-body {
+    padding: 32px 28px 36px;
+    font-family: var(--mono);
+  }
+  .term-line {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  .prompt { color: var(--green); flex-shrink: 0; }
+  .cmd { color: var(--text); }
+
+  .hero-name {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: clamp(34px, 6vw, 56px);
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    margin: 18px 0 6px;
+    color: var(--text);
+  }
+  .hero-role {
+    font-family: var(--mono);
+    font-size: clamp(14px, 2vw, 17px);
+    color: var(--green);
+    margin-bottom: 18px;
+  }
+  .hero-role .caret {
+    display: inline-block;
+    width: 9px; height: 18px;
+    background: var(--green);
+    margin-left: 4px;
+    vertical-align: middle;
+    animation: blink 1.1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .hero-desc {
+    font-family: var(--sans);
+    font-size: 16px;
+    color: var(--text-dim);
+    max-width: 540px;
+    margin-bottom: 26px;
+  }
+  .hero-desc strong { color: var(--text); font-weight: 600; }
+
+  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 30px; }
+  .btn {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 11px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.15s;
+    border: 1px solid transparent;
+  }
+  .btn-primary {
+    background: var(--green);
+    color: #07120c;
+  }
+  .btn-primary:hover { background: #95ecb6; transform: translateY(-1px); }
+  .btn-ghost {
+    border-color: var(--panel-border-hover);
+    color: var(--text);
+  }
+  .btn-ghost:hover { border-color: var(--green); color: var(--green); }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--text-faint);
+    border-top: 1px solid var(--panel-border);
+    padding-top: 18px;
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 6px; }
+  .hero-meta .ok { color: var(--green); }
+
+  /* ---------- SECTION LABELS ---------- */
+  .section { padding: 56px 0; }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--green);
+    letter-spacing: 0.04em;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::before { content: '#'; color: var(--text-faint); }
+  .section-title {
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: clamp(24px, 3.5vw, 32px);
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+  }
+  .section-sub {
+    color: var(--text-dim);
+    font-size: 15px;
+    max-width: 560px;
+    margin-bottom: 36px;
+  }
+
+  /* ---------- STACK / STATUS GRID ---------- */
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 720px) { .status-grid { grid-template-columns: 1fr; } }
+
+  .status-card {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 18px 18px 16px;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .status-card:hover { border-color: var(--panel-border-hover); transform: translateY(-2px); }
+  .status-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .status-name {
+    font-family: var(--mono);
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .status-pill {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--green);
+    background: rgba(127,227,168,0.1);
+    border: 1px solid rgba(127,227,168,0.25);
+    padding: 2px 8px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .status-pill .d { width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
+  .status-items {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--text-faint);
+    line-height: 1.9;
+  }
+
+  /* ---------- PROJECTS / DEPLOY LOG ---------- */
+  .deploy-log {
+    border-left: 2px solid var(--panel-border);
+    margin-left: 6px;
+  }
+  .deploy-entry {
+    position: relative;
+    padding: 0 0 36px 30px;
+  }
+  .deploy-entry:last-child { padding-bottom: 4px; }
+  .deploy-entry::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 4px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--green);
+  }
+  .deploy-meta {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-faint);
+    margin-bottom: 6px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .deploy-meta .tag {
+    color: var(--green);
+    background: rgba(127,227,168,0.08);
+    padding: 1px 7px;
+    border-radius: 4px;
+    border: 1px solid rgba(127,227,168,0.2);
+  }
+  .deploy-title {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .deploy-desc {
+    color: var(--text-dim);
+    font-size: 14.5px;
+    max-width: 580px;
+    margin-bottom: 12px;
+  }
+  .deploy-stack {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--text-dim);
+    border: 1px solid var(--panel-border-hover);
+    padding: 3px 9px;
+    border-radius: 5px;
+  }
+
+  /* ---------- METRICS STRIP ---------- */
+  .metrics {
+    display: flex;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--panel-border);
+    border-left: 1px solid var(--panel-border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .metric {
+    background: var(--panel);
+    padding: 24px 20px;
+    text-align: left;
+    border-right: 1px solid var(--panel-border);
+    border-bottom: 1px solid var(--panel-border);
+    flex: 1 1 25%;
+    min-width: 150px;
+  }
+  @media (max-width: 720px) {
+    .metric { flex: 1 1 50%; }
+  }
+  .metric-num {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 28px;
+    color: var(--green);
+    margin-bottom: 4px;
+  }
+  .metric-label {
+    font-size: 12.5px;
+    color: var(--text-faint);
+    font-family: var(--mono);
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact-card {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    padding: 44px 36px;
+    text-align: center;
+  }
+  .contact-card .section-label { justify-content: center; }
+  .contact-title {
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: clamp(22px, 3vw, 30px);
+    margin-bottom: 12px;
+  }
+  .contact-sub {
+    color: var(--text-dim);
+    font-size: 15px;
+    margin-bottom: 26px;
+  }
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  footer {
+    border-top: 1px solid var(--panel-border);
+    padding: 26px 0;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-faint);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pulse, .hero-role .caret { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo"><span class="dot">●</span> eshan@devops<span style="color:var(--text-faint)">:~$</span></div>
+    <div class="nav-links">
+      <a href="#stack">stack</a>
+      <a href="#projects">deploys</a>
+      <a href="#metrics">metrics</a>
+      <a href="#contact">contact</a>
+    </div>
+    <div class="nav-status"><span class="pulse"></span> available</div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="terminal">
+      <div class="term-bar">
+        <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
+        <span class="term-title">whoami — eshan-srivastava</span>
+      </div>
+      <div class="term-body">
+        <div class="term-line"><span class="prompt">$</span><span class="cmd">whoami</span></div>
+        <h1 class="hero-name">Eshan Srivastava</h1>
+        <div class="hero-role">DevOps &amp; Platform Engineer<span class="caret"></span></div>
+        <p class="hero-desc">
+          I build <strong>infrastructure that doesn't page anyone at 3 AM.</strong> CI/CD pipelines, Kubernetes platforms, and cloud architecture that ships fast and stays up — with the observability to prove it.
+        </p>
+        <div class="hero-ctas">
+          <a href="#projects" class="btn btn-primary">→ view deploy log</a>
+          <a href="#contact" class="btn btn-ghost">get in touch</a>
+        </div>
+        <div class="hero-meta">
+          <span class="ok">●</span>
+          <span>uptime: <span style="color:var(--text)">4+ yrs in production</span></span>
+          <span>·</span>
+          <span>region: <span style="color:var(--text)">India</span></span>
+          <span>·</span>
+          <span>status: <span style="color:var(--green)">open to opportunities</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="stack">
+  <div class="wrap">
+    <div class="section-label">stack --status</div>
+    <h2 class="section-title">Everything here passes health checks</h2>
+    <p class="section-sub">The tools I run in production, not just ones I've read the docs for.</p>
+
+    <div class="status-grid">
+      <div class="status-card">
+        <div class="status-top">
+          <span class="status-name">Cloud &amp; Infra</span>
+          <span class="status-pill"><span class="d"></span>healthy</span>
+        </div>
+        <div class="status-items">
+          AWS (EC2, EKS, S3, IAM)<br>
+          Terraform · Pulumi<br>
+          Azure (basics)
+        </div>
+      </div>
+
+      <div class="status-card">
+        <div class="status-top">
+          <span class="status-name">Containers</span>
+          <span class="status-pill"><span class="d"></span>healthy</span>
+        </div>
+        <div class="status-items">
+          Docker · Kubernetes<br>
+          Helm · ArgoCD<br>
+          Istio (service mesh)
+        </div>
+      </div>
+
+      <div class="status-card">
+        <div class="status-top">
+          <span class="status-name">CI / CD</span>
+          <span class="status-pill"><span class="d"></span>healthy</span>
+        </div>
+        <div class="status-items">
+          GitHub Actions · Jenkins<br>
+          GitLab CI<br>
+          ArgoCD (GitOps)
+        </div>
+      </div>
+
+      <div class="status-card">
+        <div class="status-top">
+          <span class="status-name">Observability</span>
+          <span class="status-pill"><span class="d"></span>healthy</span>
+        </div>
+        <div class="status-items">
+          Prometheus · Grafana<br>
+          ELK Stack<br>
+          Datadog
+        </div>
+      </div>
+
+      <div class="status-card">
+        <div class="status-top">
+          <span class="status-name">Config &amp; Scripting</span>
+          <span class="status-pill"><span class="d"></span>healthy</span>
+        </div>
+        <div class="status-items">
+          Ansible · Bash<br>
+          Python · Go (basics)<br>
+          Yaml, more yaml
+        </div>
+      </div>
+
+      <div class="status-card">
+        <div class="status-top">
+          <span class="status-name">Security</span>
+          <span class="status-pill"><span class="d"></span>healthy</span>
+        </div>
+        <div class="status-items">
+          Vault · IAM policy design<br>
+          Trivy · SonarQube<br>
+          Secrets management
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="projects">
+  <div class="wrap">
+    <div class="section-label">git log --oneline</div>
+    <h2 class="section-title">Recent deploys</h2>
+    <p class="section-sub">A few systems I've designed, broken, and fixed — in roughly that order.</p>
+
+    <div class="deploy-log">
+      <div class="deploy-entry">
+        <div class="deploy-meta"><span class="tag">production</span> 2025 — present</div>
+        <div class="deploy-title">Zero-downtime multi-region EKS platform</div>
+        <p class="deploy-desc">Re-architected a single-region deployment into a multi-region EKS setup with automated failover, cutting deployment downtime from ~12 minutes to zero and incident response time by 60%.</p>
+        <div class="deploy-stack">
+          <span class="chip">Kubernetes</span><span class="chip">Terraform</span><span class="chip">ArgoCD</span><span class="chip">AWS</span>
+        </div>
+      </div>
+
+      <div class="deploy-entry">
+        <div class="deploy-meta"><span class="tag">platform</span> 2024</div>
+        <div class="deploy-title">CI/CD pipeline standardization</div>
+        <p class="deploy-desc">Designed reusable GitHub Actions pipeline templates adopted across 15+ microservices, reducing average build-to-deploy time from 22 minutes to 6.</p>
+        <div class="deploy-stack">
+          <span class="chip">GitHub Actions</span><span class="chip">Docker</span><span class="chip">Helm</span>
+        </div>
+      </div>
+
+      <div class="deploy-entry">
+        <div class="deploy-meta"><span class="tag">observability</span> 2023</div>
+        <div class="deploy-title">Full-stack monitoring &amp; alerting overhaul</div>
+        <p class="deploy-desc">Rolled out Prometheus + Grafana + Alertmanager across all services, replacing ad-hoc log diving with real dashboards and on-call alerts tied to actual SLOs.</p>
+        <div class="deploy-stack">
+          <span class="chip">Prometheus</span><span class="chip">Grafana</span><span class="chip">Alertmanager</span>
+        </div>
+      </div>
+
+      <div class="deploy-entry">
+        <div class="deploy-meta"><span class="tag">automation</span> 2022</div>
+        <div class="deploy-title">Infrastructure-as-Code migration</div>
+        <p class="deploy-desc">Migrated hand-clicked AWS infrastructure to fully version-controlled Terraform modules, eliminating configuration drift and making every change reviewable.</p>
+        <div class="deploy-stack">
+          <span class="chip">Terraform</span><span class="chip">AWS</span><span class="chip">Ansible</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="metrics">
+  <div class="wrap">
+    <div class="section-label">metrics --summary</div>
+    <h2 class="section-title">By the numbers</h2>
+    <p class="section-sub">A snapshot, updated roughly as often as my dashboards are.</p>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-num">99.95%</div>
+        <div class="metric-label">avg. platform uptime</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">60%</div>
+        <div class="metric-label">faster incident response</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">15+</div>
+        <div class="metric-label">services on standardized CI/CD</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">4+ yrs</div>
+        <div class="metric-label">production experience</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="contact-card">
+      <div class="section-label">contact --reach</div>
+      <h2 class="contact-title">Let's ship something reliable</h2>
+      <p class="contact-sub">Open to DevOps, SRE, and platform engineering roles — or just talking infra.</p>
+      <div class="contact-links">
+        <a href="mailto:eshan.srivastava@example.com" class="btn btn-primary">✉ email me</a>
+        <a href="https://linkedin.com/in/eshansrivastava" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/eshansrivastava" class="btn btn-ghost" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; width:100%;">
+    <span>© 2026 Eshan Srivastava</span>
+    <span>exit 0 — built with care, not just YAML</span>
+  </div>
+</footer>
+
+</body>
+</html>
